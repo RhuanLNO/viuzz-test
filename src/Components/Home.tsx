@@ -1,9 +1,12 @@
-import { Typography, AppBar, Toolbar, Box, Tab, Tabs, Button } from "@mui/material";
-import toggleShowHome  from '../App'
-import toggleShowLogin from '../App'
-import toggleShowRegister from '../App'
+import { AppBar, Toolbar, Box, Tab, Tabs, Button } from "@mui/material";
+import { Logo, Banner, NavTab, LoginButton, RegisterButton } from '../assets/StyledHome'
 
-const Header = () => {
+const Header = (props: {
+  toggleShowRegister: React.MouseEventHandler<HTMLButtonElement> | undefined; 
+  toggleShowLogin: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  toggleShowHome: React.MouseEventHandler<HTMLDivElement> | undefined;
+  toggleShowEmployees: React.MouseEventHandler<HTMLDivElement> | undefined;
+}) => {
   return(
     <AppBar position="static" color="default">
       <Toolbar variant="regular">
@@ -17,19 +20,18 @@ const Header = () => {
           alt="Logo"
           src={'../src/assets/Logo.png'}
         />
-        <Tabs
-          sx={{ marginLeft: "20px"}}
+        <Banner
           indicatorColor="secondary"
           textColor="inherit"
         />
-        <Tab label="Início" sx={{color: 'black'}} />
-        <Tab label="Funcionários" sx={{color: 'black'}} />
-        <Button sx={{ marginLeft: "auto"}} variant="contained" color="secondary" onClick={toggleShowLogin}>
+        <NavTab label="Início" onClick={props.toggleShowHome} />
+        <NavTab label="Funcionários" onClick={props.toggleShowEmployees} />
+        <LoginButton variant="contained" color="secondary" onClick={props.toggleShowLogin}>
           Login
-        </Button>
-        <Button sx={{ marginLeft: "10px" }} variant="contained" color="secondary">
+        </LoginButton>
+        <RegisterButton variant="contained" color="secondary" onClick={props.toggleShowRegister} >
           Cadastro
-        </Button>
+        </RegisterButton>
       </Toolbar>
     </AppBar>
   );

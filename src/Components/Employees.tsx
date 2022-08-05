@@ -8,8 +8,12 @@ import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Grid } from '@mui/material';
+import { useState, useEffect } from "react";
+import { ReactElement, JSXElementConstructor, ReactFragment, Key, ReactPortal } from 'react';
 
-const Employees = () => {
+const Employees = (props: {
+  toggleShowRegister: React.MouseEventHandler<SVGSVGElement> | undefined;
+}) => {
   function createData(
     name: string,
     calories: number,
@@ -20,6 +24,27 @@ const Employees = () => {
     return { name, calories, fat, carbs, protein };
   }
   
+  const [table, setTable] = useState([]);
+
+  let retrievedObject = JSON.parse(localStorage.getItem('name')!);
+  let retrievedObject2 = JSON.parse(localStorage.getItem('job')!);
+  let retrievedObject3 = JSON.parse(localStorage.getItem('city')!);
+  /* console.log(retrievedObject, retrievedObject2, retrievedObject3); */
+
+  let testobject = JSON.stringify(localStorage);
+  let test2 = JSON.parse(testobject)
+  var result = Object.keys(test2).map((key) => [Number(key), test2[key]]);
+  console.log(result)
+  
+  const dataa = async () => {
+    await setTable(test2);
+  };
+
+  useEffect(() => {
+    dataa();
+  }, []);
+
+
   const rows = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -41,8 +66,8 @@ const Employees = () => {
             <TableCell align="right">Protein&nbsp;(g)</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {rows.map((row) => (
+        {<TableBody>
+          {rows.map((row: any) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -52,15 +77,13 @@ const Employees = () => {
               </TableCell>
               <TableCell align="right">{row.calories}</TableCell>
               <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
             </TableRow>
           ))}
-        </TableBody>
+        </TableBody>}
       </Table>
     </TableContainer>
     <Grid container justifyContent={'end'}>
-      <EditIcon color="secondary" />
+      <EditIcon color="secondary" onClick={props.toggleShowRegister} />
       <DeleteIcon color="secondary" />
     </Grid>
     </>
