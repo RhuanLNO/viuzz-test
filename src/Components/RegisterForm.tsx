@@ -52,15 +52,24 @@ const Register = () => {
   };
 
   const saveInfor = (e: any) => {
-    e.preventDefault();
-    const names = getValues("name")
-    const jobs = getValues("job")
-    let namehistory = JSON.parse(localStorage.getItem("name")!) || [];
-    namehistory.push(names);
-    localStorage.setItem("name", JSON.stringify(namehistory));
-    let jobhistory = JSON.parse(localStorage.getItem("job")!) || [];
-    jobhistory.push(jobs);
-    localStorage.setItem("job", JSON.stringify(jobhistory));
+    let newEmployee = {
+      name: getValues('name'),
+      job: getValues('job'),
+      town: town
+    };
+    let listEmployees = JSON.parse(localStorage.getItem("employees")!) || [];
+    listEmployees.push(newEmployee);
+    localStorage.setItem("employees", JSON.stringify(listEmployees));
+    //console.log(listEmployees);
+    // e.preventDefault();
+    // const names = getValues("name")
+    // const jobs = getValues("job")
+    // let namehistory = JSON.parse(localStorage.getItem("name")!) || [];
+    // namehistory.push(names);
+    // localStorage.setItem("name", JSON.stringify(namehistory));
+    // let jobhistory = JSON.parse(localStorage.getItem("job")!) || [];
+    // jobhistory.push(jobs);
+    // localStorage.setItem("job", JSON.stringify(jobhistory));
 
   }
   const values = getValues("name")

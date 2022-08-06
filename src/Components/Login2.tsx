@@ -1,10 +1,10 @@
 import { Grid, FormControl, Typography, Input, Box, FormGroup } from "@mui/material";
 import { TopGrid, LoginTypography, FormTextfield, SendButton } from '../assets/StyledLogin'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-const LoginForm2 = () => {
+const LoginForm2 = (props: {toggleLogin: React.FormEventHandler<HTMLButtonElement> | undefined;}) => {
 
 /*   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,10 +57,15 @@ const LoginForm2 = () => {
       uname: "invalid username",
       pass: "invalid password"
     };
-  
+
     const handleSubmit = (event: any) => {
       //Prevent page reload
       event.preventDefault();
+      props.toggleLogin
+      
+/*       const callFunc = () => {
+        props.toggleLogin;
+      }; */
   
       var { uname, pass } = document.forms[0];
   
@@ -74,7 +79,7 @@ const LoginForm2 = () => {
           setErrorMessages({ name: "pass", message: errors.pass });
         } else {
           setIsSubmitted(true);
-        }
+        };
       } else {
         // Username not found
         setErrorMessages({ name: "uname", message: errors.uname });
@@ -89,7 +94,7 @@ const LoginForm2 = () => {
               <LoginTypography align="center">Login</LoginTypography>
               <FormTextfield id="email" label="E-mail" name="uname" variant="outlined" />
               <FormTextfield id="password" label="Senha" type="password" name="pass" variant="outlined" />
-              <SendButton variant="outlined" type="submit" value="LOGIN" >Enviar</SendButton>
+              <SendButton variant="outlined" type="submit" value="LOGIN" onClick={props.toggleLogin} >Enviar</SendButton>
             </Grid>
           </form>
         </TopGrid>

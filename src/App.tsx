@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Header } from "./Components/Home"
 import { Register } from "./Components/RegisterForm"
-import { LoginForm } from "./Components/Login"
 import { Employees } from './Components/Employees'
 import { LoginForm2 } from './Components/Login2'
 
@@ -9,6 +8,7 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
   const [showEmployees, setShowEmployees] = useState(false)
+  const [IsLoggedIn, setIsLoggedIn] = useState(false)
 
 
   const toggleShowLogin = () => {
@@ -35,12 +35,19 @@ const App = () => {
     setShowEmployees(true);
   };
 
+  const toggleLogin = () => {
+    setIsLoggedIn(true);
+    console.log(IsLoggedIn);
+  };
+
+  
+
   return ( 
     <>
       <Header toggleShowLogin={toggleShowLogin} toggleShowRegister={toggleShowRegister} toggleShowHome={toggleShowHome} toggleShowEmployees={toggleShowEmployees} />
-      {showLogin ? <LoginForm2 />: null}
+      {showLogin ? <LoginForm2 toggleLogin={toggleLogin} />: null}
       {showRegister ? <Register />: null}
-      {showEmployees ? <Employees toggleShowRegister={toggleShowRegister}/>: null}
+      {showEmployees && IsLoggedIn ? <Employees toggleShowRegister={toggleShowRegister}/>: null}
     </>
   );
 }

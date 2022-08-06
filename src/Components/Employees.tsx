@@ -25,23 +25,24 @@ const Employees = (props: {
   }
   
   const [table, setTable] = useState([]);
+  const [employees, setEmployees] = useState<any>([]);
+  //let employees = JSON.parse(localStorage.getItem('name')!) || [];
+  // let retrievedObject = JSON.parse(localStorage.getItem('name')!);
+  // let retrievedObject2 = JSON.parse(localStorage.getItem('job')!);
+  // let retrievedObject3 = JSON.parse(localStorage.getItem('city')!);
+  // /* console.log(retrievedObject, retrievedObject2, retrievedObject3); */
 
-  let retrievedObject = JSON.parse(localStorage.getItem('name')!);
-  let retrievedObject2 = JSON.parse(localStorage.getItem('job')!);
-  let retrievedObject3 = JSON.parse(localStorage.getItem('city')!);
-  /* console.log(retrievedObject, retrievedObject2, retrievedObject3); */
-
-  let testobject = JSON.stringify(localStorage);
-  let test2 = JSON.parse(testobject)
-  var result = Object.keys(test2).map((key) => [Number(key), test2[key]]);
-  console.log(result)
+  // let testobject = JSON.stringify(localStorage);
+  // let test2 = JSON.parse(testobject)
+  // var result = Object.keys(test2).map((key) => [Number(key), test2[key]]);
+  // console.log(result)
   
-  const dataa = async () => {
-    await setTable(test2);
-  };
+  // const dataa = async () => {
+  //   await setTable(test2);
+  // };
 
   useEffect(() => {
-    dataa();
+    setEmployees(JSON.parse(localStorage.getItem('employees')!) || []);
   }, []);
 
 
@@ -59,33 +60,34 @@ const Employees = (props: {
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>Nome</TableCell>
+            <TableCell align="right">Cargo</TableCell>
+            <TableCell align="right">Cidade</TableCell> 
           </TableRow>
         </TableHead>
         {<TableBody>
-          {rows.map((row: any) => (
+          {employees.map((employee: any) => (
             <TableRow
-              key={row.name}
+              key={employee.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {employee.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{employee.job}</TableCell>
+              <TableCell align="right">{employee.town}</TableCell>
+              <TableCell>
+                 <div>
+                  <EditIcon color="secondary" onClick={props.toggleShowRegister} />
+                  <DeleteIcon color="secondary" />
+                </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>}
       </Table>
     </TableContainer>
-    <Grid container justifyContent={'end'}>
-      <EditIcon color="secondary" onClick={props.toggleShowRegister} />
-      <DeleteIcon color="secondary" />
-    </Grid>
+   
     </>
   );
 }
