@@ -40,6 +40,7 @@ const LoginForm2 = (props: {toggleLogin: React.FormEventHandler<HTMLButtonElemen
     // React States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+
   
     // User Login info
     const database = [
@@ -59,29 +60,25 @@ const LoginForm2 = (props: {toggleLogin: React.FormEventHandler<HTMLButtonElemen
     };
 
     const handleSubmit = (event: any) => {
-      //Prevent page reload
+      console.log(typeof props.toggleLogin)
+      /* props.toggleLogin(); */
       event.preventDefault();
-      props.toggleLogin
-      
+            
 /*       const callFunc = () => {
         props.toggleLogin;
       }; */
   
       var { uname, pass } = document.forms[0];
   
-      // Find user login info
       const userData = database.find((user) => user.username === uname.value);
   
-      // Compare user info
       if (userData) {
         if (userData.password !== pass.value) {
-          // Invalid password
           setErrorMessages({ name: "pass", message: errors.pass });
         } else {
           setIsSubmitted(true);
         };
       } else {
-        // Username not found
         setErrorMessages({ name: "uname", message: errors.uname });
       }
     };

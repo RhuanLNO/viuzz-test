@@ -8,8 +8,7 @@ import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Grid } from '@mui/material';
-import { useState, useEffect } from "react";
-import { ReactElement, JSXElementConstructor, ReactFragment, Key, ReactPortal } from 'react';
+import { useState, useEffect, MouseEventHandler } from "react";
 
 const Employees = (props: {
   toggleShowRegister: React.MouseEventHandler<SVGSVGElement> | undefined;
@@ -43,17 +42,23 @@ const Employees = (props: {
 
   useEffect(() => {
     setEmployees(JSON.parse(localStorage.getItem('employees')!) || []);
+  
   }, []);
 
+  console.log(employees)
 
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+  const removeItem = (index: any ) => {
+let employeesCopie = JSON.parse(JSON.stringify(employees));
+
+    employeesCopie.splice(index, 1);
+    setEmployees(employeesCopie);
+    /*     employees.splice(index, 1)
+     localStorage.setItem("employees", JSON.stringify(employees));
+             console.log(employees); */
+  };
   
+
+
   return (
     <>
     <TableContainer component={Paper}>
@@ -66,9 +71,9 @@ const Employees = (props: {
           </TableRow>
         </TableHead>
         {<TableBody>
-          {employees.map((employee: any) => (
+          {employees.map((employee: any, index: any ) => (
             <TableRow
-              key={employee.name}
+              key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -79,7 +84,7 @@ const Employees = (props: {
               <TableCell>
                  <div>
                   <EditIcon color="secondary" onClick={props.toggleShowRegister} />
-                  <DeleteIcon color="secondary" />
+                  <DeleteIcon color="secondary" onClick={e => removeItem(index)} />
                 </div>
               </TableCell>
             </TableRow>

@@ -4,15 +4,16 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import axios from "axios";
-import { CenterGrid, JobText, TownForm, SendButton } from '../assets/Styled';
+import { CenterGrid, JobText, TownForm, SendButton, SucAlert } from '../assets/Styled';
 import { useForm } from "react-hook-form";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const Register = () => {
 
   const [data, setData] = useState<any>([]);
   const [town, setTown] = useState("");
-  const [name, setName] = useState("");
-  const [job, setJob] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   type FormData = {
     name: string;
@@ -23,6 +24,8 @@ const Register = () => {
 
   const onSubmit=(e: any) => {
     e.preventDefault();
+    setIsSubmitted(true);
+
   };
 
   const FetchData= () =>{ axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/distritos')
@@ -70,7 +73,6 @@ const Register = () => {
     // let jobhistory = JSON.parse(localStorage.getItem("job")!) || [];
     // jobhistory.push(jobs);
     // localStorage.setItem("job", JSON.stringify(jobhistory));
-
   }
   const values = getValues("name")
   const values2 = getValues("job")
@@ -112,6 +114,10 @@ const Register = () => {
             </TownForm>
             <SendButton variant="outlined" value="Register" type="submit" onClick={saveInfor}>Enviar</SendButton>
           </form>
+          {isSubmitted ? <SucAlert severity="success">
+          <AlertTitle><strong>Sucesso</strong></AlertTitle>
+          Funcionário cadastrado!
+          </SucAlert> :  null}
         </Grid>
       </CenterGrid>
       <Grid container item alignItems={'center'} flexDirection={'column'}>

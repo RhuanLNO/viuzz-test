@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import {Button} from "@mui/material";
+import Alert from '@mui/material/Alert';
 
 const CenterGrid = styled(Grid)`
   margin: 60px 0px 20px 0px;
@@ -22,4 +23,8 @@ const SendButton = styled(Button)`
   width: 100%
 `;
 
-export { CenterGrid, JobText, TownForm, SendButton };
+const SucAlert = styled(Alert)`
+  width: 100%
+`;
+
+export { CenterGrid, JobText, TownForm, SendButton, SucAlert };
