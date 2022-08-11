@@ -50,7 +50,7 @@ const App = () => {
     <>
       <Header toggleShowLogin={toggleShowLogin} toggleShowRegister={toggleShowRegister} toggleShowHome={toggleShowHome} toggleShowEmployees={toggleShowEmployees} />
       {showLogin ? <LoginForm2 toggleLogin={toggleLogin} />: null}
-      {showRegister ? <Register toggleShowEmployees={toggleShowEmployees} />: null}
+      {showRegister && IsLoggedIn ?  <Register toggleShowEmployees={toggleShowEmployees} />: null}
       {showEmployees && IsLoggedIn ? <Employees toggleShowRegister={toggleShowRegister} toggleShowEdit={toggleShowRegister} />: null}
     </>
   );
