@@ -7,57 +7,33 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid } from '@mui/material';
-import { useState, useEffect, MouseEventHandler } from "react";
+import { useState, useEffect } from "react";
 
-const Employees = (props: {
-  toggleShowRegister: React.MouseEventHandler<SVGSVGElement> | undefined;
-}) => {
-  function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-  ) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const [table, setTable] = useState([]);
+  const Employees = (props: {
+    toggleShowRegister: any | React.MouseEventHandler<SVGSVGElement> | undefined;
+    toggleShowEdit: any | React.MouseEventHandler<SVGSVGElement> | undefined;
+  }) => {
+
   const [employees, setEmployees] = useState<any>([]);
-  //let employees = JSON.parse(localStorage.getItem('name')!) || [];
-  // let retrievedObject = JSON.parse(localStorage.getItem('name')!);
-  // let retrievedObject2 = JSON.parse(localStorage.getItem('job')!);
-  // let retrievedObject3 = JSON.parse(localStorage.getItem('city')!);
-  // /* console.log(retrievedObject, retrievedObject2, retrievedObject3); */
-
-  // let testobject = JSON.stringify(localStorage);
-  // let test2 = JSON.parse(testobject)
-  // var result = Object.keys(test2).map((key) => [Number(key), test2[key]]);
-  // console.log(result)
-  
-  // const dataa = async () => {
-  //   await setTable(test2);
-  // };
 
   useEffect(() => {
     setEmployees(JSON.parse(localStorage.getItem('employees')!) || []);
-  
+
   }, []);
 
-  console.log(employees)
 
   const removeItem = (index: any ) => {
-let employeesCopie = JSON.parse(JSON.stringify(employees));
-
+    let employeesCopie = JSON.parse(JSON.stringify(employees));
     employeesCopie.splice(index, 1);
     setEmployees(employeesCopie);
-    /*     employees.splice(index, 1)
-     localStorage.setItem("employees", JSON.stringify(employees));
-             console.log(employees); */
+    localStorage.setItem("employees", JSON.stringify(employeesCopie));
   };
   
-
+  const editHandle = (index: any, values: any) => {
+    console.log(index, values);
+    localStorage.setItem("index", index);
+    props.toggleShowEdit();
+  };
 
   return (
     <>
@@ -71,7 +47,15 @@ let employeesCopie = JSON.parse(JSON.stringify(employees));
           </TableRow>
         </TableHead>
         {<TableBody>
-          {employees.map((employee: any, index: any ) => (
+          {employees.map((employee: any, index: any ) => {
+            
+            const savedValues = {
+              name: employee.name,
+              job: employee.job,
+              town: employee.town
+            };
+
+            return(
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -83,18 +67,17 @@ let employeesCopie = JSON.parse(JSON.stringify(employees));
               <TableCell align="right">{employee.town}</TableCell>
               <TableCell>
                  <div>
-                  <EditIcon color="secondary" onClick={props.toggleShowRegister} />
+                  <EditIcon color="secondary" onClick={e => editHandle(index, savedValues)} />
                   <DeleteIcon color="secondary" onClick={e => removeItem(index)} />
                 </div>
               </TableCell>
             </TableRow>
-          ))}
+          )})}
         </TableBody>}
       </Table>
     </TableContainer>
-   
     </>
   );
-}
+};
 
 export { Employees };
