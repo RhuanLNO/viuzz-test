@@ -10,23 +10,23 @@ const App = () => {
   const [showEmployees, setShowEmployees] = useState(false)
   const [IsLoggedIn, setIsLoggedIn] = useState(false)
 
-
   const toggleShowLogin = () => {
     setShowLogin(true);
     setShowRegister(false);
-    setShowEmployees(false) 
+    setShowEmployees(false);
   };
 
   const toggleShowRegister = () => {
     setShowLogin(false);
     setShowRegister(true);
-    setShowEmployees(false)
+    setShowEmployees(false);
   };
 
   const toggleShowHome = () => {
     setShowLogin(false);
     setShowRegister(false);
-    setShowEmployees(false)
+    setShowEmployees(false);
+
   };
 
   const toggleShowEmployees = () => {
@@ -40,14 +40,18 @@ const App = () => {
     console.log(IsLoggedIn);
   };
 
-  
+  const toggleShowEdit = () => {
+    setShowLogin(false);
+    setShowRegister(false);
+    setShowEmployees(false);
+  };
 
   return ( 
     <>
       <Header toggleShowLogin={toggleShowLogin} toggleShowRegister={toggleShowRegister} toggleShowHome={toggleShowHome} toggleShowEmployees={toggleShowEmployees} />
       {showLogin ? <LoginForm2 toggleLogin={toggleLogin} />: null}
-      {showRegister ? <Register />: null}
-      {showEmployees && IsLoggedIn ? <Employees toggleShowRegister={toggleShowRegister}/>: null}
+      {showRegister ? <Register toggleShowEmployees={toggleShowEmployees} />: null}
+      {showEmployees && IsLoggedIn ? <Employees toggleShowRegister={toggleShowRegister} toggleShowEdit={toggleShowRegister} />: null}
     </>
   );
 }
