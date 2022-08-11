@@ -8,3 +8,12 @@ RegisterForm.tsx - Página de registro de funcionários <br>
 _________________________________________________________________________________________________________________________________________________________________________
 
 Styled.ts, StyledHome.ts, StyledLogin.ts - Estilização com Styled-Components
+
+_________________________________________________________________________________________________________________________________________________________________________
+
+Como utilizar o projeto:
+
+Fazer o login no botão login com Usuário: admin Senha: admin
+Cadastrar novo funcionário novo funcionário clicando no botão cadastro. Cadastro com nome, e-mail e cidade. (Necessário localStorage para funcionar).
+Em funcionários é permitido editar ou remover os funcionários cadastrados.
+Ao editar funcionário e clicar no botão salvar, a página funcionários é exibida novamente.
