@@ -14,10 +14,6 @@ const LoginForm2 = (props: {toggleLogin: React.FormEventHandler<HTMLButtonElemen
       username: "admin",
       password: "admin"
     },
-    {
-      username: "user2",
-      password: "pass2"
-    }
   ];
   
   const errors = {
